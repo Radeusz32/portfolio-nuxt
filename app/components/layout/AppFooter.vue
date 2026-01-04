@@ -4,13 +4,14 @@ const year = new Date().getFullYear();
 interface FooterLink {
   id: string;
   label: string;
-  href: string;
+  to?: string; // routing wewnętrzny
+  href?: string; // link zewnętrzny
 }
 
 const links: FooterLink[] = [
-  { id: "projects", label: "Projekty", href: "#projekty" },
-  { id: "contact", label: "Kontakt", href: "#kontakt" },
-  { id: "github", label: "GitHub", href: "https://github.com/" },
+  { id: "projects", label: "Projekty", to: "/projects" },
+  { id: "contact", label: "Kontakt", to: "/contact" },
+  { id: "github", label: "GitHub", href: "https://github.com/Radeusz32" },
 ];
 </script>
 
@@ -31,10 +32,25 @@ const links: FooterLink[] = [
         <h4 class="text-sm font-semibold text-white tracking-wide uppercase">
           Nawigacja
         </h4>
+
         <ul class="mt-4 space-y-2 text-sm">
           <li v-for="link in links" :key="link.id">
+            <!-- ROUTING WEWNĘTRZNY -->
+            <NuxtLink
+              v-if="link.to"
+              :to="link.to"
+              class="text-white/60 hover:text-white transition"
+              active-class="text-white"
+            >
+              {{ link.label }}
+            </NuxtLink>
+
+            <!-- LINK ZEWNĘTRZNY -->
             <a
+              v-else
               :href="link.href"
+              target="_blank"
+              rel="noopener noreferrer"
               class="text-white/60 hover:text-white transition"
             >
               {{ link.label }}
@@ -59,7 +75,7 @@ const links: FooterLink[] = [
     <div
       class="border-t border-white/10 py-6 text-center text-xs text-white/40"
     >
-      © {{ year }} Jan Dev. Wszystkie prawa zastrzeżone.
+      © {{ year }} Rad.stack. Wszystkie prawa zastrzeżone.
     </div>
   </footer>
 </template>
