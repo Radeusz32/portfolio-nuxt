@@ -1,11 +1,12 @@
+<script></script>
 <template>
   <div>
-    <header>Header</header>
+    <LayoutAppHeader />
 
     <main>
       <slot />
     </main>
 
-    <footer>Footer</footer>
+    <LayoutAppFooter />
   </div>
 </template>
